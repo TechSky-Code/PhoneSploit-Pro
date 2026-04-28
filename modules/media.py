@@ -278,7 +278,7 @@ def record_audio(config: AppConfig, mode: str) -> None:
         label = "Microphone Audio"
     else:
         file_name = f"device-audio-{_timestamp()}.opus"
-        audio_flag = ""
+        audio_flag = "--audio-source=output"
         label = "Device Audio"
 
     submenu_row("Stream & record", "Record only (fast)")

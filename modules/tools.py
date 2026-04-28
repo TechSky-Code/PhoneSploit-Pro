@@ -103,4 +103,8 @@ def require_metasploit(config: AppConfig) -> bool:
 
 def scrcpy_argv(config: AppConfig, args: list[str]) -> list[str]:
     """Build argv for subprocess; caller must ensure require_scrcpy(config) first."""
-    return [config.scrcpy_path or "scrcpy"] + args
+    base = [config.scrcpy_path or "scrcpy"]
+    # Skip --no-audio if the caller already specified an audio configuration
+    if not any(a.startswith("--audio-source") or a.startswith("--audio-codec") for a in args):
+        base.append("--no-audio")
+    return base + args
